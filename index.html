@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./index.js"></script>
+    <style>
+        span {
+            margin-right: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="text"></div>
+    <span class="handle" data-id="start">开始</span>
+    <span class="handle" data-id="pause">暂停</span>
+    <span class="handle" data-id="reset">重置</span>
+</body>
+<script>
+    var cd1 = countDown({
+        time: 60 * 1000,
+        millisecond: true,
+        change(time) {
+            document.getElementById('text').innerHTML =  `${time.seconds}秒${time.milliseconds}`
+        },
+        finish() {
+            document.getElementById('text').innerHTML = '倒计时完成'
+        }
+    })
+    var btnList = document.getElementsByClassName('handle')
+    for (let index = 0; index < btnList.length; index++) {
+        const element = btnList[index];
+        element.onclick = function (e) {
+            var key = e.target.dataset.id
+            cd1[key]()
+        }
+    }
+</script>
+</html>
